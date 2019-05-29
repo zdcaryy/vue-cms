@@ -14,11 +14,11 @@
     <!-- 六宫格 -->
     <ul class="mui-table-view mui-grid-view mui-grid-9">
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-        <a href="#">
+        <routerLink to="/home/newslist">
             <!-- 路径中不能存在中文 -->
           <img src="../../images/icons/news.png">
           <div class="mui-media-body">新闻资讯</div>
-        </a>
+        </routerLink>
       </li>
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
         <a href="#">
@@ -62,7 +62,9 @@ export default {
   },
   methods: {
     getLunboData() {
-      this.$http.get("http://192.168.31.39:8888/lunboData").then(res => {
+      //已经在main.js中全局安装了vue-resource,所以这里可以使用
+      //vue-resource这里不能加 /
+      this.$http.get("lunboData").then(res => {
         console.log(res.body);
         if (res.body.status == 0) {
           this.lunboData = res.body.data;
