@@ -8,14 +8,17 @@ import VueResource from 'vue-resource';
 Vue.use(VueResource);
 //配置请求的根路径
 Vue.http.options.root = 'http://192.168.31.39:8888';
+//设置 post 请求使用表单格式提交数据
+Vue.http.options.emulateJSON = true;
 
 import app from './App.vue';
 
 //按需导入 mintui
-import { Header, Swipe, SwipeItem } from 'mint-ui';
+import { Header, Swipe, SwipeItem,Button} from 'mint-ui';
 Vue.component(Header.name, Header);
 Vue.component(Swipe.name, Swipe);
 Vue.component(SwipeItem.name, SwipeItem);
+Vue.component(Button.name, Button);
 
 //引入mui
 import './lib/mui/css/mui.min.css';
