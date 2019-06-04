@@ -21,10 +21,10 @@
         </routerLink>
       </li>
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-        <a href="#">
+        <routerLink to="/home/photoList">
           <img src="../../images/icons/picshare.png">
           <div class="mui-media-body">图片分享</div>
-        </a>
+        </routerLink>
       </li>
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
         <a href="#">

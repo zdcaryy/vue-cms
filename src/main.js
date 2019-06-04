@@ -14,11 +14,17 @@ Vue.http.options.emulateJSON = true;
 import app from './App.vue';
 
 //按需导入 mintui
-import { Header, Swipe, SwipeItem,Button} from 'mint-ui';
-Vue.component(Header.name, Header);
-Vue.component(Swipe.name, Swipe);
-Vue.component(SwipeItem.name, SwipeItem);
-Vue.component(Button.name, Button);
+// import { Header, Swipe, SwipeItem,Button,Lazyload} from 'mint-ui';
+// Vue.component(Header.name, Header);
+// Vue.component(Swipe.name, Swipe);
+// Vue.component(SwipeItem.name, SwipeItem);
+// Vue.component(Button.name, Button);
+// Vue.use(Lazyload);//懒加载,这样按需导入这个lazyload没有效果
+
+//为了使用lazyload，不使用按需导入的方式
+import MintUI from 'mint-ui'
+import 'mint-ui/lib/style.css'
+Vue.use(MintUI);
 
 //引入mui
 import './lib/mui/css/mui.min.css';
