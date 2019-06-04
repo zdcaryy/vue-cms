@@ -13,6 +13,8 @@ import NewsDetail from './components/news/NewsDetail.vue';
 import PhotoList from './components/photos/PhotoList.vue';
 //导入图片详情组件
 import PhotoDetail from './components/photos/PhotoDetail.vue';
+//导入商品列表组件
+import GoodsList from './components/goods/GoodsList.vue';
 
 
 var router=new VueRouter({
@@ -25,7 +27,8 @@ var router=new VueRouter({
         {path:'/home/newslist',component:NewsList},
         {path:'/home/newsdetail/:id',component:NewsDetail},
         {path:'/home/photolist',component:PhotoList},
-        {path:'/home/photodetail/:id',component:PhotoDetail}
+        {path:'/home/photodetail/:id',component:PhotoDetail},
+        {path:'/home/GoodsList',component:GoodsList}
     ],
     linkActiveClass:'mui-active'//覆盖默认的路由高亮的类 link-active
 })

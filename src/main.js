@@ -37,6 +37,10 @@ console.log(moment().month());
 console.log(moment().format('YYYY-MM-DD'));
 console.log(moment(1554048000000).day());
 
+//引入vue中的图片预览插件，vue2+才能使用
+import VuePreview from 'vue2-preview';
+Vue.use(VuePreview);
+
 //定义全局的过滤器
 Vue.filter('dateFormat',function(dataStr,pattern='YYYY-MM-DD HH:mm:ss'){
     return moment(dataStr).format(pattern);
