@@ -3,13 +3,7 @@
     <!-- <h3>HomeContainer</h3> -->
 
     <!-- 轮播图区域   -->
-    <mt-swipe :auto="4000">
-      <mt-swipe-item v-for="item in lunboData" :key="item.url">
-        <a :href="item.link">
-          <img :src="item.url">
-        </a>
-      </mt-swipe-item>
-    </mt-swipe>
+    <my-swipe :lunboList="lunboData" :isfull="true"></my-swipe>
 
     <!-- 六宫格 -->
     <ul class="mui-table-view mui-grid-view mui-grid-9">
@@ -54,6 +48,7 @@
   </div>
 </template>
 <script>
+import Swipe from '../subcomponents/swipe.vue';
 export default {
   data() {
     return {
@@ -74,30 +69,13 @@ export default {
   },
   created() {
     this.getLunboData();
+  },
+  components:{
+    mySwipe:Swipe
   }
 };
 </script>
 <style lang="scss" scoped>
-.mint-swipe {
-  height: 250px;
-  .mint-swipe-item {
-    //& 符号交集选择器
-    &:nth-child(1) {
-      background: pink;
-    }
-    &:nth-child(2) {
-      background: deepskyblue;
-    }
-    &:nth-child(3) {
-      background: yellowgreen;
-    }
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  }
-}
-
 .mui-grid-view.mui-grid-9 {
   background-color: #fff;
   .mui-table-view-cell .mui-media-body {

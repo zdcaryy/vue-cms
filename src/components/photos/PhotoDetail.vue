@@ -24,7 +24,7 @@
   </div>
 </template>
 <script>
-import Comment from "../subcompenents/Comment.vue";
+import Comment from "../subcomponents/comment.vue";
 export default {
   data() {
     return {
