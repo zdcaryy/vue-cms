@@ -24,7 +24,7 @@
           <mt-button type="primary" size="small">立即购买</mt-button>
           <mt-button type="danger" size="small" @click="flag=!flag;">加入购物车</mt-button>
           <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
-            <div class="ball" v-show="flag"></div>
+            <div class="ball" v-show="flag" ref="ball"></div>
           </transition>
         </div>
       </div>
@@ -92,9 +92,16 @@ export default {
       el.style.transform = "translate(0,0)";
     },
     enter(el, done) {
-      el.offsetWidth;//必须要，不然没有动画效果
-      el.style.transform = "translate(96px,223px)";
-      el.style.transition = "all 3s ease";
+      el.offsetWidth; //必须要，不然没有动画效果
+      console.log(el);
+      console.log(el.getBoundingClientRect());
+      console.log(this.$refs.ball.getBoundingClientRect());
+      var ballPosition=el.getBoundingClientRect();
+      var badgePosition=document.getElementById('badge').getBoundingClientRect();
+      xDist=badgePosition.left-ballPosition.left;
+      yDist=badgePosition.top-ballPosition.top;
+      el.style.transform = `translate(${xDist}px,${yDist}px)`;
+      el.style.transition = "all 1s cubic-bezier(.19,-0.26,.83,.67)";
       done();
     },
     afterEnter(el) {
