@@ -19,7 +19,7 @@
           </div>
           <div class="shop-num">
             购买数量：
-            <numbox></numbox>
+            <numbox @func="getSelectedCount" :maxCount="goodsDetail.num"></numbox>
           </div>
           <mt-button type="primary" size="small">立即购买</mt-button>
           <mt-button type="danger" size="small" @click="flag=!flag;">加入购物车</mt-button>
@@ -56,7 +56,8 @@ export default {
       id: this.$route.params.id,
       lunboList: [],
       goodsDetail: {},
-      flag: false
+      flag: false,
+      selectedCount:1,//保存用户选中的商品数量，默认为1
     };
   },
   methods: {
@@ -93,7 +94,6 @@ export default {
     },
     enter(el, done) {
       el.offsetWidth; //必须要，不然没有动画效果
-      console.log(el);
       console.log(el.getBoundingClientRect());
       console.log(this.$refs.ball.getBoundingClientRect());
       var ballPosition=el.getBoundingClientRect();
@@ -106,6 +106,10 @@ export default {
     },
     afterEnter(el) {
       this.flag = !this.flag;
+    },
+    //获取用户选中的商品数量,这里是子组件向父组件传值
+    getSelectedCount(count){
+      this.selectedCount=count;
     }
   },
   created() {
