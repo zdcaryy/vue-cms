@@ -22,9 +22,9 @@
             <numbox @func="getSelectedCount" :maxCount="goodsDetail.num"></numbox>
           </div>
           <mt-button type="primary" size="small">立即购买</mt-button>
-          <mt-button type="danger" size="small" @click="flag=!flag;">加入购物车</mt-button>
+          <mt-button type="danger" size="small" @click="addToShopCar">加入购物车</mt-button>
           <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
-            <div class="ball" v-show="flag" ref="ball"></div>
+            <div class="ball" v-show="ballFlag" ref="ball"></div>
           </transition>
         </div>
       </div>
@@ -56,8 +56,8 @@ export default {
       id: this.$route.params.id,
       lunboList: [],
       goodsDetail: {},
-      flag: false,
-      selectedCount:1,//保存用户选中的商品数量，默认为1
+      ballFlag: false,
+      selectedCount: 1 //保存用户选中的商品数量，默认为1
     };
   },
   methods: {
@@ -96,20 +96,33 @@ export default {
       el.offsetWidth; //必须要，不然没有动画效果
       console.log(el.getBoundingClientRect());
       console.log(this.$refs.ball.getBoundingClientRect());
-      var ballPosition=el.getBoundingClientRect();
-      var badgePosition=document.getElementById('badge').getBoundingClientRect();
-      xDist=badgePosition.left-ballPosition.left;
-      yDist=badgePosition.top-ballPosition.top;
+      var ballPosition = el.getBoundingClientRect();
+      var badgePosition = document
+        .getElementById("badge")
+        .getBoundingClientRect();
+      xDist = badgePosition.left - ballPosition.left;
+      yDist = badgePosition.top - ballPosition.top;
       el.style.transform = `translate(${xDist}px,${yDist}px)`;
       el.style.transition = "all 1s cubic-bezier(.19,-0.26,.83,.67)";
       done();
     },
     afterEnter(el) {
-      this.flag = !this.flag;
+      this.ballFlag = !this.ballFlag;
     },
     //获取用户选中的商品数量,这里是子组件向父组件传值
-    getSelectedCount(count){
-      this.selectedCount=count;
+    getSelectedCount(count) {
+      this.selectedCount = count;
+    },
+    //加入购物车
+    addToShopCar() {
+      this.ballFlag = !this.ballFlag;
+      var goodsObj = {
+        id: this.id,
+        price: this.goodsDetail.sell_price,
+        selectedCount: this.selectedCount,
+        selectStatus: true //默认购物车结算界面选中
+      };
+      this.$store.commit("addToShopCar", goodsObj);
     }
   },
   created() {

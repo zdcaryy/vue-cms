@@ -41,6 +41,36 @@ console.log(moment(1554048000000).day());
 import VuePreview from 'vue2-preview';
 Vue.use(VuePreview);
 
+//引入vuex
+import Vuex from 'vuex';
+Vue.use(Vuex);//安装vuex
+var store=new Vuex.Store({
+    state:{
+        shopCar:[],//购物车中加入的商品对象
+    },
+    mutations:{
+        //加入购物车
+        addToShopCar(state,goodsObj){
+            console.log(goodsObj);
+            var flag=false;//判断购物车中是否已经存在此商品，如果存在只需要添加数量就行了，如果不存在，则需要将该商品对象放入 shopCar 数组中
+            state.shopCar.some(item=>{
+                console.log(item);
+                if(item.id===goodsObj.id){
+                    flag=true;
+                    item.selectedCount+=parseInt(goodsObj.selectedCount);
+                    return true;//如果找到就返回 true 这样数组后面的元素就不需要继续遍历了，提前结束遍历
+                }
+            })
+            if(!flag){
+                state.shopCar.push(goodsObj);
+            }
+        }
+    },
+    getters:{
+
+    }
+})
+
 //定义全局的过滤器
 Vue.filter('dateFormat',function(dataStr,pattern='YYYY-MM-DD HH:mm:ss'){
     return moment(dataStr).format(pattern);
@@ -49,5 +79,6 @@ Vue.filter('dateFormat',function(dataStr,pattern='YYYY-MM-DD HH:mm:ss'){
 var vm = new Vue({
     el: '#app',
     render: c => c(app),
-    router
+    router,
+    store
 })
