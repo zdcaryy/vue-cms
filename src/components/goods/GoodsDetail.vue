@@ -48,7 +48,7 @@
 <script>
 //引入轮播图组件
 import Swipe from "../subcomponents/swipe.vue";
-//引入数组输入框组件
+//引入数字输入框组件
 import Numbox from "../subcomponents/goodsdetail_numbox.vue";
 export default {
   data() {

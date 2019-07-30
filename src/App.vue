@@ -1,7 +1,11 @@
 <template>
   <div class="app-container">
     <!-- 顶部header区域 -->
-    <mt-header fixed title="vue项目"></mt-header>
+    <mt-header fixed title="vue项目">
+      <span slot="left" v-if="flag">
+        <mt-button icon="back" @click="toback">返回</mt-button>
+      </span>
+    </mt-header>
 
     <!-- 中间路由router-view区域 -->
     <transition>
@@ -20,7 +24,7 @@
       </routerLink>
       <routerLink class="mui-tab-item-zdc" to="/shopcar">
         <span class="mui-icon mui-icon-extra mui-icon-extra-cart">
-          <span class="mui-badge" id="badge">12</span>
+          <span class="mui-badge" id="badge">{{$store.getters.getAllGoodsCount}}</span>
         </span>
         <span class="mui-tab-label">购物车</span>
       </routerLink>
@@ -31,14 +35,44 @@
     </nav>
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      flag: false
+    };
+  },
+  methods: {
+    toback() {
+      this.$router.go(-1);
+    }
+  },
+  created(){
+      if(this.$route.path!='/home'){
+          this.flag=true;
+      }else{
+          this.flag=false;
+      }
+  },
+  watch: {
+    "$route.path": function(newPath) {
+      if (newPath == "/home") {
+          this.flag=false;
+      }else{
+          this.flag=true;
+      }
+    }
+  }
+};
+</script>
 <style lang="scss" scoped>
 .app-container {
   padding-top: 40px;
   padding-bottom: 50px;
   overflow-x: hidden;
 }
-.mint-header{
-  z-index:99;
+.mint-header {
+  z-index: 99;
 }
 
 .v-enter {
@@ -63,7 +97,7 @@
 //为了解决图片分享页面中顶部滑动导航栏的js和tabbar类名的作用导致tabbar无法实现正常跳转
 //自定义类名来取代 .mui-tab-item
 //https://blog.csdn.net/sxs7970/article/details/88954037
-.mui-bar-tab .mui-tab-item-zdc{
+.mui-bar-tab .mui-tab-item-zdc {
   display: table-cell;
   overflow: hidden;
   width: 1%;
@@ -75,19 +109,19 @@
   color: #929292;
 }
 .mui-bar-tab .mui-tab-item-zdc .mui-icon {
-    top: 3px;
-    width: 24px;
-    height: 24px;
-    padding-top: 0;
-    padding-bottom: 0;
+  top: 3px;
+  width: 24px;
+  height: 24px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
-.mui-bar-tab .mui-tab-item-zdc .mui-icon~.mui-tab-label {
-    font-size: 11px;
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.mui-bar-tab .mui-tab-item-zdc .mui-icon ~ .mui-tab-label {
+  font-size: 11px;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .mui-bar-tab .mui-tab-item-zdc.mui-active {
-    color: #007aff;
+  color: #007aff;
 }
 </style>
